@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://adammil.net/Risky/map.xsd" xmlns="http://adammil.net/Risky/map.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:simpleType name="coordinate">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d+,\d+" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="coordinateList">
+    <xs:list itemType="coordinate" />
+  </xs:simpleType>
+
+  <!-- the connections element contains a whitespace-separated list of pairs of territory IDs, where the IDs in each
+       pair are separated by a comma. each pair represents a bidirectional connection between the two territories
+       having those IDs
+  -->
+  <xs:simpleType name="connections">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\s*(\w+\s+\w+,\s*)*(\w+\s+\w+)\s*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="trimmedString">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\S.*?\S" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="continent">
+    <xs:sequence>
+      <xs:element name="territory" type="territory" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="draftBonus" type="xs:integer" default="0" />
+    <xs:attribute name="name" type="trimmedString" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="map">
+    <xs:sequence>
+      <xs:element name="connections" type="connections" />
+      <xs:element name="continents">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="continent" type="continent" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="trimmedString" use="required" />
+    <xs:attribute name="image" type="trimmedString" use="required" />
+    <xs:attribute name="maskImage" type="trimmedString" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="territory">
+    <xs:attribute name="name" type="trimmedString" use="required" />
+    <xs:attribute name="center" type="coordinate" use="required" />
+    <xs:attribute name="islands" type="coordinateList" />
+    <xs:attribute name="id" type="xs:ID" />
+  </xs:complexType>
+
+  <xs:element name="map" type="map" />
+  
+</xs:schema>
