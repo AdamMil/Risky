@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<map name="Sample map" image="board.png" maskImage="mask.gif" xmlns="http://adammil.net/Risky/map.xsd">
+  <connections>
+    ala kam, ala alb, ala nwt,
+    alb nwt, alb ont, alb wus,
+    ca eus, ca ven, ca wus,
+    eus ont, eus que, eus wus,
+    gre ice, gre ont, gre nwt, gre que,
+    nwt ont,
+    ont que, ont wus,
+
+    arg bra, arg per,
+    bra naf, bra per, bra ven,
+    per ven,
+
+    gb ice, gb neu, gb sca, gb weu,
+    ice sca,
+    neu sca, neu seu, neu ukr, neu weu,
+    sca ukr,
+    seu egy, seu me, seu naf, seu ukr, seu weu,
+    ukr afg, ukr me, ukr ura,
+    weu naf,
+
+    con eaf, con naf, con saf,
+    eaf egy, eaf mad, eaf me, eaf naf, eaf saf,
+    egy me, egy naf,
+    mad saf,
+
+    afg chi, afg indi, afg me, afg ura,
+    chi indi, chi mon, chi sia, chi sib, chi ura,
+    indi me, indi sia,
+    irk kam, irk mon, irk sib, irk yak,
+    jap kam, jap mon,
+    kam mon, kam yak,
+    mon sib,
+    sia indo,
+    sib ura, sib yak,
+
+    eau ng, eau wau,
+    indo ng, indo wau,
+    ng wau
+  </connections>
+
+  <continents>
+    <continent name="North America" draftBonus="5">
+      <territory name="Alaska" center="71,93" islands="38,137" id="ala"/>
+      <territory name="Alberta" center="154,151" id="alb"/>
+      <territory name="Central America" center="154,290" id="ca"/>
+      <territory name="Eastern United States" center="230,243" id="eus"/>
+      <territory name="Greenland" center="351,60" id="gre"/>
+      <territory name="Northwest Territory" center="166,97" id="nwt"/>
+      <territory name="Ontario" center="221,166" id="ont"/>
+      <territory name="Quebec" center="292,160" id="que"/>
+      <territory name="Western United States" center="162,224" id="wus"/>
+    </continent>
+
+    <continent name="South America" draftBonus="2">
+      <territory name="Argentina" center="265,525" id="arg"/>
+      <territory name="Brazil" center="314,435" id="bra"/>
+      <territory name="Peru" center="250,458" id="per"/>
+      <territory name="Venezuela" center="232,372" id="ven"/>
+    </continent>
+
+    <continent name="Europe" draftBonus="5">
+      <territory name="Great Britain" center="425,222" islands="395,204" id="gb"/>
+      <territory name="Iceland" center="433,130" id="ice"/>
+      <territory name="Northern Europe" center="503,221" id="neu"/>
+      <territory name="Scandinavia" center="497,140" id="sca"/>
+      <territory name="Southern Europe" center="513,272" id="seu"/>
+      <territory name="Ukraine" center="597,174" id="ukr"/>
+      <territory name="Western Europe" center="424,312" id="weu"/>
+    </continent>
+
+    <continent name="Africa" draftBonus="3">
+      <territory name="Congo" center="550,496" id="con"/>
+      <territory name="East Africa" center="581,434" id="eaf"/>
+      <territory name="Egypt" center="546,381" id="egy"/>
+      <territory name="Madagascar" center="638,590" id="mad"/>
+      <territory name="North Africa" center="467,407" id="naf"/>
+      <territory name="South Africa" center="556,585" id="saf"/>
+    </continent>
+
+    <continent name="Asia" draftBonus="7">
+      <territory name="Afghanistan" center="682,243" id="afg"/>
+      <territory name="China" center="793,291" id="chi"/>
+      <territory name="India" center="731,338" id="indi"/>
+      <territory name="Irkutsk" center="814,156" id="irk"/>
+      <territory name="Japan" center="923,239" islands="925,186" id="jap"/>
+      <territory name="Kamchatka" center="905,83" id="kam" />
+      <territory name="Middle East" center="619,353" id="me"/>
+      <territory name="Mongolia" center="822,226" id="mon"/>
+      <territory name="Siam" center="809,365" id="sia"/>
+      <territory name="Siberia" center="746,110" id="sib"/>
+      <territory name="Ural" center="693,148" id="ura"/>
+      <territory name="Yakutsk" center="825,80" id="yak"/>
+    </continent>
+
+    <continent name="Oceania" draftBonus="2">
+      <territory name="Eastern Australia" center="934,547" id="eau"/>
+      <territory name="Indonesia" center="835,474" islands="802,486 857,492 840,518" id="indo"/>
+      <territory name="New Guinea" center="921,460" id="ng"/>
+      <territory name="Western Australia" center="871,577" id="wau"/>
+    </continent>
+  </continents>
+</map>
