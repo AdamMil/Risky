@@ -22,9 +22,10 @@ class Program
     Video.Initialize();
 
     string dataDir = "d:/adammil/code/risky/data/";
+    font = new TrueTypeFont("c:/windows/fonts/arial.ttf", 16) { RenderStyle = RenderStyle.Blended };
     map = new Map(dataDir + "map.xml");
     game = new Game(map, 2);
-    font = new TrueTypeFont("c:/windows/fonts/arial.ttf", 16) { RenderStyle = RenderStyle.Blended };
+    game.Players[1].AI = new AI(map, game);
 
     Video.SetMode(1005, 660, 0);
     WM.WindowTitle = "Risky!";
@@ -271,6 +272,15 @@ class Program
       case EventType.Repaint: Repaint(); break;
       case EventType.Quit: return false;
     }
+
+    // TODO: move this to a better place
+    bool aiPlayed = false;
+    while(game.CurrentPlayer.AI != null)
+    {
+      game.CurrentPlayer.AI.Move();
+      aiPlayed = true;
+    }
+    if(aiPlayed) Repaint();
 
     return true;
   }

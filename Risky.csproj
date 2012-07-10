@@ -39,6 +39,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
@@ -64,6 +65,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\ai.docx" />
     <None Include="docs\progress.xlsx" />
     <None Include="docs\tasks.xlsx" />
     <None Include="map.xsd" />
