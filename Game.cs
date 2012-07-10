@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace Risky
 {
@@ -40,6 +41,12 @@ public sealed class Player
   internal Player(int index)
   {
     Index = index;
+  }
+
+  /// <summary>Gets or sets the <see cref="AI"/> of the player. If null, the player is human-controlled.</summary>
+  public AI AI
+  {
+    get; set;
   }
 
   /// <summary>Gets whether the player has been defeated.</summary>
@@ -147,8 +154,9 @@ public sealed class Game
 
     // initialize the territory state and players
     territories = new TerritoryInfo[map.Territories.Count];
-    players = new Player[numPlayers];
-    for(int i=0; i<players.Length; i++) players[i] = new Player(i);
+    _players = new Player[numPlayers];
+    for(int i=0; i<_players.Length; i++) _players[i] = new Player(i);
+    Players = new ReadOnlyCollection<Player>(_players);
 
     // set up the initial deck of star cards
     singleStarCards = 30;
@@ -163,7 +171,12 @@ public sealed class Game
   /// </summary>
   public Player CurrentPlayer
   {
-    get { return players[_currentPlayer]; }
+    get { return _players[_currentPlayer]; }
+  }
+
+  public ReadOnlyCollection<Player> Players
+  {
+    get; private set;
   }
 
   /// <summary>Gets the current stage of the game, as a <see cref="GameStage"/> value. This determines which actions
@@ -435,9 +448,9 @@ public sealed class Game
     int nextPlayer = _currentPlayer;
     do
     {
-      if(++nextPlayer == players.Length) nextPlayer = 0;
+      if(++nextPlayer == _players.Length) nextPlayer = 0;
       if(nextPlayer == _currentPlayer) return false; // if we've returned to the starting point, then no players match
-    } while(players[nextPlayer].Defeated || isValid != null && !isValid(players[nextPlayer]));
+    } while(_players[nextPlayer].Defeated || isValid != null && !isValid(_players[nextPlayer]));
 
     CurrentPlayer.ResetTurnData(); // reset the old player's per-turn info
     _currentPlayer = nextPlayer;   // and move to the new player
@@ -485,7 +498,7 @@ public sealed class Game
   /// <summary>Gets the number of initial armies granted to each player.</summary>
   int GetInitialArmies()
   {
-    return 40 - (players.Length-2)*5; // 40 for 2 players, 35 for 3, 30 for 4, 25 for 5, and 20 for 6
+    return 40 - (_players.Length-2)*5; // 40 for 2 players, 35 for 3, 30 for 4, 25 for 5, and 20 for 6
   }
 
   /// <summary>Gets the index of the given territory within the <see cref="Map.Territories"/> collection (and thus the
@@ -531,7 +544,7 @@ public sealed class Game
     {
       case GameStage.Claim: // in the claim stage, set the number of unclaimed territories and the initial armies
         unclaimedTerritories = territories.Length;
-        foreach(Player player in players) player.DraftArmies = GetInitialArmies();
+        foreach(Player player in _players) player.DraftArmies = GetInitialArmies();
         break;
 
       case GameStage.Draft: // in the draft stage, grant the new armies to the current player
@@ -557,13 +570,13 @@ public sealed class Game
     if(--player.OwnedTerritories == 0) // if a player lost all his territories
     {
       player.Defeated = true; // then he was defeated
-      if(players.Count(p => !p.Defeated) == 1) Stage = GameStage.Finished; // if only one player remains, he wins
+      if(_players.Count(p => !p.Defeated) == 1) Stage = GameStage.Finished; // if only one player remains, he wins
     }
     CalculateContinentBonus(player);
   }
 
   readonly Map map;
-  readonly Player[] players;
+  readonly Player[] _players;
   readonly Random rand = new Random();
   /// <summary>Information about the state of the game's territories. Each element corresponds to a territory in the
   /// <see cref="Map.Territories"/> collection.
